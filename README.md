@@ -30,3 +30,11 @@ binds:
 # when you push 'A', 'base1.wav' will start being played
 # when you push 'A' again, 'base1.wav' will stop being played
 ```
+
+
+# words
+
+*
+*launchpad*: a wonderful music instrument. Let's google if you don't know!!
+*clip*: the music file which will be assinged to keys. Those files puts in 'src/'
+*attribute(attr)*: type of action that will be occured when the key is pushed
