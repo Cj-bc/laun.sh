@@ -15,7 +15,7 @@ source ${lib_dir}/config.sh
 # get clip file path binded to <key>
 # @param <str key>
 # @return $EX_OK(0) file path binded to <key>
-# @return 
+# @return $EX_USAGE(64) usage
 function launsh.key.src.get {
   [ $# -ne 1 ] && echo 'only 1 key is needed' >2 && return $(launsh.util.error EX_USAGE)
   echo $(launsh.config.yaml | shyaml get-value binds.${key}.src)
@@ -26,6 +26,7 @@ function launsh.key.src.get {
 # get attribute for <key>.
 # could be ['clip', 'shot']
 # @return $EX_OK(0) attribute binded to <key>
+# @return $EX_USAGE(64) usage
 function launsh.key.attr.get {
   [ $# -ne 1 ] && echo 'only 1 key is needed' >2 && return $(launsh.util.error EX_USAGE)
   echo $(launsh.config.yaml | shyaml get-value binds.${key}.attr)
