@@ -12,6 +12,13 @@ source ${lib_dir}/util.sh
 source ${lib_dir}/config.sh
 
 
+# return available attributes
+# @return $EX_OK(0) list of available attributes
+function launsh.key.attr {
+  echo 'trigger shot'
+  return $(launsh.util.error EX_OK)
+}
+
 # get clip file path binded to <key>
 # @param <str key>
 # @return $EX_OK(0) file path binded to <key>
