@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# @(#) laun.sh.key  -- key related library for laun.sh
+#
+# @(#) copyright (c) 2018 Cj-bc
+# @(#) this software is released under MIT License
+#
+# @(#) ver: 0.0.1
+
+lib_dir=$(cd $(dirname ${BASH_SOURCE[0]:-$0}); pwd)/lib
+source ${lib_dir}/util.sh
+source ${lib_dir}/config.sh
+
+
+# get clip file path binded to <key>
+# @param <str key>
+# @return $EX_OK(0) file path binded to <key>
+# @return 
+function launsh.key.src.get {
+  [ $# -ne 1 ] && echo 'only 1 key is needed' >2 && return $(launsh.util.error EX_USAGE)
+  echo $(launsh.config.yaml | shyaml get-value binds.${key}.src)
+  return $(launsh.util.error EX_OK)
+}
+
+
+# get attribute for <key>.
+# could be ['clip', 'shot']
+# @return $EX_OK(0) attribute binded to <key>
+function launsh.key.attr.get {
+  [ $# -ne 1 ] && echo 'only 1 key is needed' >2 && return $(launsh.util.error EX_USAGE)
+  echo $(launsh.config.yaml | shyaml get-value binds.${key}.attr)
+  return $(launsh.util.error EX_OK)
+}
