@@ -1,0 +1,9 @@
+name: sample1
+src: src
+binds:
+  A:
+    src: base1.wav
+    attr: clip
+  L:
+    src: beat1.wav
+    attr: clip
