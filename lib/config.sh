@@ -8,14 +8,13 @@
 # @(#) ver: 0.0.1
 
 
-base_dir=$(cd $(dirname ${BASH_SOURCE[0]:-$0}); pwd)
-lib_dir=${base_dir}/lib
+lib_dir=$(cd $(dirname ${BASH_SOURCE[0]:-$0}); pwd)
 
 
 function launsh.config.yaml {
-  [ -f launsh.yaml ] || echo 'launsh.yaml: not found' >2 && return $(launsh.util.error EX_NOTFOUND)
-  cat launsh.yaml
-  return $(launsh.util.error EX_OK))
+#  [ -r 'launsh.yaml' ] || echo 'launsh.yaml: not found' >&2 && return $(launsh.util.error EX_NOTFOUND)
+  echo 'launsh.yaml'
+  return $(launsh.util.error EX_OK)
 }
 
 # return path to the 'src' dir

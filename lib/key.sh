@@ -7,7 +7,7 @@
 #
 # @(#) ver: 0.0.1
 
-lib_dir=$(cd $(dirname ${BASH_SOURCE[0]:-$0}); pwd)/lib
+lib_dir=$(cd $(dirname ${BASH_SOURCE[0]:-$0}); pwd)
 source ${lib_dir}/util.sh
 source ${lib_dir}/config.sh
 
@@ -24,8 +24,9 @@ function launsh.key.attr {
 # @return $EX_OK(0) file path binded to <key>
 # @return $EX_USAGE(64) usage
 function launsh.key.src.get {
+  local conf_file=$(launsh.config.yaml)
   [ $# -ne 1 ] && echo 'only 1 key is needed' >2 && return $(launsh.util.error EX_USAGE)
-  echo $(launsh.config.yaml | shyaml get-value binds.${key}.src)
+  echo $(cat $conf_file | shyaml get-value binds.${key}.src)
   return $(launsh.util.error EX_OK)
 }
 
@@ -35,7 +36,8 @@ function launsh.key.src.get {
 # @return $EX_OK(0) attribute binded to <key>
 # @return $EX_USAGE(64) usage
 function launsh.key.attr.get {
+  local conf_file=$(launsh.config.yaml)
   [ $# -ne 1 ] && echo 'only 1 key is needed' >2 && return $(launsh.util.error EX_USAGE)
-  echo $(launsh.config.yaml | shyaml get-value binds.${key}.attr)
+  echo $(cat $conf_file | shyaml get-value binds.${key}.attr)
   return $(launsh.util.error EX_OK)
 }

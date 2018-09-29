@@ -7,3 +7,6 @@ binds:
   L:
     src: beat1.wav
     attr: trigger
+  Q:
+    src: music1.wav
+    attr: shot
