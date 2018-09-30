@@ -38,3 +38,11 @@ binds:
 *launchpad*: a wonderful music instrument. Let's google if you don't know!!
 *clip*: the music file which will be assinged to keys. Those files puts in 'src/'
 *attribute(attr)*: type of action that will be occured when the key is pushed
+
+
+# Thanks to
+
+  * niieani/bash-oo-framework -- Bash Infinity is a modern boilerplate / framework / standard library for bash
+    Used for many things...making class, error handling, etc..
+  * 0k/shyaml -- a yaml parser for shellscript.
+    Used for parsing launsh.yaml
