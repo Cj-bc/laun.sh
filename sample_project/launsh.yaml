@@ -4,9 +4,79 @@ binds:
   A:
     src: base1.wav
     attr: trigger
+  B:
+    src: -
+    attr: -
+  C:
+    src: -
+    attr: -
+  D:
+    src: -
+    attr: -
+  E:
+    src: -
+    attr: -
+  F:
+    src: -
+    attr: -
+  G:
+    src: -
+    attr: -
+  H:
+    src: -
+    attr: -
+  I:
+    src: -
+    attr: -
+  J:
+    src: -
+    attr: -
+  K:
+    src: -
+    attr: -
   L:
-    src: beat1.wav
-    attr: trigger
+    src: -
+    attr: -
+  M:
+    src: -
+    attr: -
+  N:
+    src: -
+    attr: -
+  O:
+    src: -
+    attr: -
+  P:
+    src: -
+    attr: -
   Q:
     src: music1.wav
     attr: shot
+  R:
+    src: -
+    attr: -
+  S:
+    src: -
+    attr: -
+  T:
+    src: -
+    attr: -
+  U:
+    src: -
+    attr: -
+  V:
+    src: -
+    attr: -
+  W:
+    src: beat1.wav
+    attr: trigger
+  X:
+    src: -
+    attr: -
+  Y:
+    src: -
+    attr: -
+  Z:
+    src: -
+    attr: -
+
