@@ -41,13 +41,15 @@ class:Key() {
     @return this attr
   }
 
+
   # get clip file path binded to <key>
-  # @param <str key>
   # @return <str clip_path>
   Key.get_src() {
     @return this src
   }
 
+  # get previous playing PID
+  # @return <int pid>
   key.get_prevPid() {
     @return this prev_pid
   }
