@@ -8,13 +8,12 @@
 # @(#) ver: 0.0.1
 
 # bash-oo-framework
-source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
 
 import util/log util/exception util/tryCatch util/namedParameters util/class
 
-namespace LaunshConfig
+namespace Launsh/Config
 
-Log::AddOutput LaunshConfig DEBUG
+Log::AddOutput Launsh/Config DEBUG
 
 class:LaunshConfig() {
   public string conf_path
@@ -24,7 +23,7 @@ class:LaunshConfig() {
   LaunshConfig.__init__() {
     [string] conf_path
 
-    for key in {A-Z}; do
+    for key in {A..Z}; do
       src=$(cat $conf_path | shyaml get-value binds.${key}.src)
       attr=$(cat $conf_path | shyaml get-value binds.${key}.attr)
       Key $key
@@ -34,3 +33,5 @@ class:LaunshConfig() {
     done
   }
 }
+
+Type::Initialize LaunshConfig

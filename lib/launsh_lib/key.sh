@@ -7,9 +7,7 @@
 #
 # @(#) ver: 0.0.1
 
-source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
-
-import util config
+import util/log util/exception util/tryCatch util/namedParameters util/class
 
 class:Key() {
   private string src
@@ -47,13 +45,16 @@ class:Key() {
   key.set_prePid() {
     [integer] pid
     this prev_pid = $pid
+    subject="key event" Log "Prev_pid is updated for $(this)"
   }
 
   # return available attributes
   # @return $EX_OK(0) list of available attributes
   Key::available_attr() {
-    [array] attrs = ("trigger" "shot")
+    array attrs=( "trigger" "shot" )
 
     @return attrs
   }
 }
+
+Type::Initialize Key
