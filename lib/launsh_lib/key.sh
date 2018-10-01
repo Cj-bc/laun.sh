@@ -20,7 +20,7 @@ class:Key() {
 
     this attr = $attr
     this src = $src
-    this played = false
+    this prev_pid = 0
   }
   # get attribute for <key>.
   # could be ['clip', 'shot']
