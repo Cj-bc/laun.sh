@@ -10,6 +10,7 @@
 import util/log util/exception util/tryCatch util/namedParameters util/class
 
 class:Key() {
+  private bool is_set
   private string src
   private string attr
   private integer prev_pid
@@ -18,10 +19,21 @@ class:Key() {
     [string] src
     [string] attr
 
+    [ $src = '-' -a $attr = '-' ] && this is_set = false || this is_set = true
+
     this attr = $attr
     this src = $src
     this prev_pid = 0
   }
+
+
+  # return is this key set
+  # @return <bool is_set>
+  key.is_set?() {
+    @return this is_set
+  }
+
+
   # get attribute for <key>.
   # could be ['clip', 'shot']
   # @return <str attr>
