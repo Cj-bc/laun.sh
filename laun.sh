@@ -7,51 +7,76 @@
 #
 # @(#) ver: 0.0.1
 
-base_dir=$(cd $(dirname ${BASH_SOURCE[0]:-$0}); pwd)
-lib_dir=${base_dir}/lib
+# bash-oo-framework
+source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
 
-source ${lib_dir}/config.sh
-source ${lib_dir}/key.sh
-source ${lib_dir}/util.sh
+import util/log util/exception util/tryCatch util/namedParameters util/class
+import launsh_lib/key
+import launsh_lib/config
 
-# the main loop
-#  by executing this, laun.sh app will start
-function launsh.main {
-  echo -e 'laun.sh: a CLI Launchpad-like instrument.\n[A-Za-z0-9]: play clip\n@: exit\n\n'
-  while read -N 1 key; do
-    case $key in
-      "@" ) break;;
-      [A-Za-z0-9] ) launsh.playclip $key || echo "Oops, something went wrong: key ${key}" >&2;;
-      * ) :;;
-    esac
-  done
-}
-# play one clip assgined to given key
-# @param <str key>
-# @return $EX_OK(0) clip successfully played
-function launsh.playclip {
-  local key=$1
-  local src=$(launsh.key.src.get $key)
-  local attr=$(launsh.key.attr.get $key)
-  declare -a launsh_value_keys=('' '')
+namespace launsh
+Log::AddOutput launsh DEBUG
+Log::AddOutput launsh/Launsh/main ERROR
 
-  case $attr in
-    'shot' )
-      # if clip is played, kill it
-      for i in ${!launsh_value_keys[@]}; do
-        if [[ ${launsh_value_keys[$i]} =~ ${key}:([0-9]+) ]]; then
-          kill ${BASH_REMATCH[1]} >/dev/null 2>&1
-          unset ${launsh_value_keys[$i]}
-          launsh_value_keys=(${launsh_value_keys[@]})
-          break;
-        fi
+class:Launsh() {
+
+  # the main loop
+  #  by executing this, laun.sh app will start
+  Launsh.main() {
+    try {
+      echo -e 'laun.sh: a CLI Launchpad-like instrument.\n[A-Za-z0-9]: play clip\n@: exit\n\n'
+      LaunshConfig launshcfg
+      var: launshcfg __init__ 'launsh.yaml'
+      while read -N 1 key; do
+        case $key in
+          "@" ) break;;
+          [A-Za-z] )
+            try {
+              this playclip ${key^^}
+            } catch {
+              Log "Oops, something went wrong: key ${key^^}"
+            };;
+          * ) :;;
+        esac
       done
-      # now time to play
-      afplay src/$src &
-      pid=$!
-      launsh_value_keys=(${launsh_value_keys[@]} "${key}:${pid}")
-  esac
+    } catch {
+      echo 'unknown error. exit.'
+    }
+  }
+
+  # play one clip assgined to given key
+  # @param <str key>
+  Launsh.playclip() {
+    [string] key
+
+    try {
+      local is_set=$(var: $key is_set?)
+      local src=$(var: $key get_src)
+      local attr=$(var: $key get_attr)
+      local prevpid=$(var: $key get_prevPid)
+    } catch {
+      e="key not found" throw
+    }
+
+    [ $is_set ] || DEBUG Log "abording $key: not assigned" && return 0
+
+    case $attr in
+      'shot' )
+        # if clip is played, kill it
+        if [ -z ${#prevpid} ]; then
+          kill $prevpid >/dev/null 2>&1 && Log "Key) $key: previous proccess killed successfully"
+        fi
+
+        # now time to play
+        afplay src/$src &
+        pid=$!
+        var: $key set_prePid
+    esac
+  }
 }
 
+Type::Initialize Launsh
 
-launsh.main
+Launsh Launsh
+
+$var:Launsh main
